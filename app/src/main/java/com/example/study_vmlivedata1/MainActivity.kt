@@ -2,6 +2,7 @@ package com.example.study_vmlivedata1
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -26,11 +27,19 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         // observer 사용 데이터 값이 변경되면 호출
         vm.currentValue.observe(this, Observer {
             //값 변경
+            Log.d("check","현재 값 : $it")
             binding.textview.text = it.toString()
+        })
+
+        vm.currentValue2.observe(this, Observer {
+            //값 변경
+            Log.d("check","바뀐 현재 값 : $it")
+            binding.checktext.text = it.toString()
         })
 
         binding.up.setOnClickListener(this)
         binding.down.setOnClickListener(this)
+        binding.check.setOnClickListener(this)
 
     }
 
@@ -40,6 +49,8 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
                 vm.updateValue(ActionType.UP)
             binding.down ->
                 vm.updateValue(ActionType.DOWN)
+            binding.check ->
+                vm.setValue()
         }
     }
 }

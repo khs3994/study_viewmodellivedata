@@ -1,5 +1,6 @@
 package com.example.study_vmlivedata1
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -12,14 +13,18 @@ class MainViewModel : ViewModel() {
 
     // 변경가능한 Mutable 타입의 LiveData
     private val _currentValue = MutableLiveData<Int>()
+    private val _currentValue2 = MutableLiveData<Int>()
 
     // 라이브 데이터 값에 접근할수 있는 getter 생성
     val currentValue : LiveData<Int>
         get() = _currentValue
+    val currentValue2 : LiveData<Int>
+        get() = _currentValue2
 
     //데이터 초기값 지정
     init {
         _currentValue.value = 0
+        _currentValue2.value = 0
     }
 
     // setter 생성
@@ -30,5 +35,10 @@ class MainViewModel : ViewModel() {
             ActionType.DOWN -> //액션 타입이 감소 일때
                 _currentValue.value = _currentValue.value?.minus(1)// 1 감소
         }
+    }
+
+    fun setValue(){
+        Log.d("check","setValue 실행")
+        _currentValue2.value = _currentValue.value
     }
 }
